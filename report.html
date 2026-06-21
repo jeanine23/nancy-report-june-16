@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nancy Report — June 23 · Interactive</title>
+<meta name="description" content="Interactive Nancy Report — overall scorecard, channels, Zigpoll attribution, and the game plan." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #f5f6fb;
+  --bg-2: #ffffff;
+  --ink: #0e1430;
+  --ink-2: #4a5170;
+  --muted: #7c83a3;
+  --dim: #a4aac4;
+  --line: #e5e7f2;
+  --line-2: #eef0fa;
+  --brand: #4f46e5;
+  --brand-2: #6366f1;
+  --brand-soft: #eef0ff;
+  --accent: #06b6d4;
+  --good: #16a34a;
+  --good-soft: #dcfce7;
+  --warn: #f59e0b;
+  --warn-soft: #fef3c7;
+  --bad: #dc2626;
+  --bad-soft: #fee2e2;
+  --shadow: 0 1px 2px rgba(14,20,48,.04), 0 8px 24px rgba(14,20,48,.06);
+  --shadow-lg: 0 4px 8px rgba(14,20,48,.04), 0 24px 56px rgba(14,20,48,.1);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+[data-theme="dark"] {
+  --bg: #0a0d1e;
+  --bg-2: #131836;
+  --ink: #f5f7ff;
+  --ink-2: #c2c9e8;
+  --muted: #8b91b5;
+  --dim: #5a6088;
+  --line: #232847;
+  --line-2: #1a1f3f;
+  --brand: #818cf8;
+  --brand-2: #a5b4fc;
+  --brand-soft: #1c2350;
+  --good-soft: #0f3a23;
+  --warn-soft: #3a2a0a;
+  --bad-soft: #3a1414;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.4);
+  --shadow-lg: 0 4px 8px rgba(0,0,0,.3), 0 24px 56px rgba(0,0,0,.5);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background .25s, color .25s;
+}
+h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.02em; margin: 0; }
+h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.05; }
+h2 { font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; line-height: 1.15; }
+h3 { font-size: 20px; font-weight: 700; }
+h4 { font-size: 16px; font-weight: 600; }
+em { font-style: italic; color: var(--brand); font-weight: 700; }
+
+/* ===== NAV ===== */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; }
+.brand-dot {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+  position: relative;
+}
+.brand-dot::after {
+  content: ''; position: absolute; inset: 4px; border-radius: 4px;
+  background: var(--bg-2);
+}
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-link {
+  text-decoration: none; color: var(--ink-2); font-size: 14px; font-weight: 500;
+  padding: 8px 14px; border-radius: 8px; transition: all .15s;
+}
+.nav-link:hover { background: var(--line-2); color: var(--ink); }
+.nav-link.primary {
+  background: var(--ink); color: var(--bg-2); padding: 9px 18px;
+}
+.nav-link.primary:hover { background: var(--brand); }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg-2); cursor: pointer; color: var(--ink-2);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all .15s; font-size: 16px;
+}
+.icon-btn:hover { background: var(--line-2); color: var(--ink); }
+
+/* ===== HERO ===== */
+.hero { max-width: 1280px; margin: 0 auto; padding: 60px 24px 40px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--brand-soft); color: var(--brand);
+  padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--brand);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.3); }
+}
+.hero h1 { margin: 18px 0 12px; }
+.hero .lead { color: var(--muted); font-size: 18px; max-width: 640px; }
+.hero-meta { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
+.hero-meta span { color: var(--muted); font-size: 14px; }
+.hero-meta strong { color: var(--ink); font-weight: 700; font-size: 16px; margin-right: 2px; }
+
+/* ===== SCORECARD ===== */
+.scorecard {
+  max-width: 1280px; margin: 30px auto; padding: 0 24px;
+}
+.scorecard-card {
+  background: var(--bg-2); border-radius: var(--radius);
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.scorecard-head {
+  padding: 24px 28px; border-bottom: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.scorecard-head h2 { font-size: 26px; }
+.scorecard-head p { color: var(--muted); margin: 4px 0 0; font-size: 13px; }
+.period-tabs {
+  display: inline-flex; background: var(--bg); padding: 4px;
+  border-radius: 10px; border: 1px solid var(--line); gap: 2px;
+}
+.period-tab {
+  border: 0; background: transparent; color: var(--muted);
+  font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 7px;
+  cursor: pointer; transition: all .15s;
+}
+.period-tab.active {
+  background: var(--bg-2); color: var(--ink);
+  box-shadow: 0 1px 2px rgba(14,20,48,.08);
+}
+.scorecard-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.scorecard-table thead th {
+  text-align: left; padding: 14px 20px; font-weight: 600;
+  color: var(--muted); background: var(--line-2);
+  font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+}
+.scorecard-table thead th:not(:first-child) { text-align: right; }
+.scorecard-table tbody td {
+  padding: 14px 20px; border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.scorecard-table tbody td:not(:first-child) { text-align: right; }
+.scorecard-table tbody tr:hover { background: var(--line-2); }
+.scorecard-table tbody tr:last-child td { border-bottom: 0; }
+.scorecard-table .row-label { font-weight: 600; color: var(--ink); }
+.scorecard-table .row-good { background: linear-gradient(90deg, rgba(22,163,74,.06), transparent); }
+.scorecard-table .row-warn { background: linear-gradient(90deg, rgba(245,158,11,.06), transparent); }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-left: 6px; vertical-align: middle; }
+.dot.good { background: var(--good); }
+.dot.warn { background: var(--warn); }
+.dot.bad { background: var(--bad); }
+.scorecard-foot { padding: 14px 28px; background: var(--line-2); font-size: 12px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+.legend { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ===== SECTIONS ===== */
+section { max-width: 1280px; margin: 60px auto; padding: 0 24px; }
+.section-head { margin-bottom: 28px; }
+.section-num {
+  display: block; font-size: 12px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--brand); font-weight: 700; margin-bottom: 8px;
+}
+.section-head p { color: var(--muted); margin: 8px 0 0; max-width: 620px; }
+
+/* ===== STATUS CARDS ===== */
+.status-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.status-card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px;
+  cursor: pointer; transition: all .2s;
+  position: relative; overflow: hidden;
+}
+.status-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--good);
+}
+.status-card.warn::before { background: var(--warn); }
+.status-card.bad::before { background: var(--bad); }
+.status-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--brand); }
+.status-card h3 { display: flex; align-items: center; gap: 10px; }
+.status-card .pill {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11px;
+  padding: 4px 10px; border-radius: 999px; font-weight: 600;
+  background: var(--good-soft); color: var(--good); margin-left: auto;
+}
+.status-card.bad .pill { background: var(--bad-soft); color: var(--bad); }
+.status-card .meta { color: var(--muted); font-size: 13px; margin: 12px 0; }
+.status-card .budget {
+  display: inline-block; padding: 6px 12px; background: var(--brand-soft);
+  color: var(--brand); border-radius: 8px; font-size: 12px; font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== TABS ===== */
+.tabs-bar {
+  display: flex; gap: 4px; border-bottom: 1px solid var(--line);
+  margin-bottom: 28px; overflow-x: auto; padding-bottom: 1px;
+}
+.tab-btn {
+  border: 0; background: transparent; padding: 14px 20px;
+  font-size: 14px; font-weight: 600; color: var(--muted);
+  cursor: pointer; position: relative; transition: color .15s;
+  white-space: nowrap;
+}
+.tab-btn::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: transparent; transition: background .2s;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--ink); }
+.tab-btn.active::after { background: var(--brand); }
+.tab-btn .count {
+  display: inline-block; background: var(--line);
+  border-radius: 4px; font-size: 11px; padding: 2px 6px; margin-left: 6px;
+  color: var(--muted); font-weight: 600;
+}
+.tab-btn.active .count { background: var(--brand-soft); color: var(--brand); }
+.panel { display: none; animation: fadeIn .25s ease; }
+.panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ===== CHANNEL CARD ===== */
+.channel-card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+}
+.channel-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 20px; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.channel-head h3 { font-size: 24px; }
+.channel-head .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.channel-budget {
+  text-align: right;
+}
+.channel-budget .big {
+  font-size: 22px; font-weight: 700; color: var(--brand);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.channel-budget .small { color: var(--muted); font-size: 12px; }
+
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; margin-bottom: 24px;
+}
+.metric {
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 16px;
+}
+.metric-label {
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600; margin-bottom: 12px;
+}
+.metric-row {
+  display: flex; justify-content: space-between; padding: 5px 0;
+  font-size: 13px;
+}
+.metric-row .k { color: var(--muted); }
+.metric-row .v { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.metric-row.hi { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+.metric-row.hi .v { color: var(--brand); }
+
+/* ===== CAMPAIGNS ===== */
+.sub-title {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700; margin: 24px 0 12px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.sub-title .note { font-size: 11px; color: var(--dim); text-transform: none; letter-spacing: 0.03em; font-weight: 400; }
+.campaign-list { display: flex; flex-direction: column; gap: 8px; }
+.campaign {
+  display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center;
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  cursor: pointer; transition: all .15s; text-align: left;
+  font-family: inherit; color: inherit; width: 100%;
+}
+.campaign:hover { border-color: var(--brand); background: var(--brand-soft); }
+.campaign .ix {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--ink); color: var(--bg-2);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px;
+}
+.campaign .nm { font-weight: 600; font-size: 14px; line-height: 1.4; }
+.campaign .nm small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+.campaign .rt {
+  font-size: 18px; font-weight: 700; color: var(--brand);
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.campaign .rt small { display: block; color: var(--muted); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ===== CREATIVES ===== */
+.creatives-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.creative {
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 18px; cursor: pointer; transition: all .15s;
+  font-family: inherit; color: inherit; text-align: left;
+  position: relative; overflow: hidden;
+}
+.creative:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--brand); }
+.creative .rank {
+  font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.05em;
+}
+.creative .big {
+  font-size: 32px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--ink); margin: 4px 0;
+  font-variant-numeric: tabular-nums;
+}
+.creative .lbl { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+.creative .stats {
+  display: flex; justify-content: space-between; margin-top: 12px;
+  font-size: 12px; color: var(--muted);
+}
+.creative .stats strong { color: var(--ink); font-weight: 600; }
+.creative .bar {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--brand), var(--accent));
+  transform: scaleX(0); transform-origin: left; transition: transform .3s;
+}
+.creative:hover .bar { transform: scaleX(1); }
+
+/* ===== NOTE ===== */
+.note {
+  background: var(--brand-soft); border-left: 3px solid var(--brand);
+  padding: 14px 18px; border-radius: 8px; font-size: 14px;
+  color: var(--ink-2); margin: 16px 0;
+}
+.note strong { color: var(--brand); }
+
+/* ===== ZIGPOLL ===== */
+.zigpoll-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+}
+@media (max-width: 720px) { .zigpoll-grid { grid-template-columns: 1fr; } }
+.zigpoll-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.zigpoll-card h4 { margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.zigpoll-card h4 .tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--brand-soft); color: var(--brand); font-weight: 600; }
+.poll-bar { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 13px; }
+.poll-bar .lbl { width: 130px; color: var(--ink-2); flex-shrink: 0; }
+.poll-bar .bar-wrap { flex: 1; height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.poll-bar .bar { height: 100%; background: linear-gradient(90deg, var(--brand), var(--accent)); border-radius: 999px; transition: width 1s ease; }
+.poll-bar .pct { width: 50px; text-align: right; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; font-size: 12px; }
+.poll-bar .ct { width: 50px; text-align: right; color: var(--muted); font-size: 11px; }
+
+.poll-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.poll-stat { text-align: center; }
+.poll-stat .v { font-size: 18px; font-weight: 700; color: var(--ink); font-family: 'Plus Jakarta Sans', sans-serif; }
+.poll-stat .k { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+/* ===== SHOPIFY ===== */
+.shopify-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px;
+}
+@media (max-width: 880px) { .shopify-grid { grid-template-columns: 1fr; } }
+.shopify-card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px;
+}
+.shopify-card h4 { margin-bottom: 14px; }
+.kv-list { display: flex; flex-direction: column; gap: 1px; }
+.kv {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--line-2); font-size: 14px;
+}
+.kv:last-child { border-bottom: 0; }
+.kv .k { color: var(--ink-2); }
+.kv .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+.kv .delta { font-size: 11px; color: var(--good); margin-left: 6px; font-weight: 600; }
+.kv .delta.neg { color: var(--bad); }
+
+.stat-tiles {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+}
+.stat-tile {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 18px;
+}
+.stat-tile .v {
+  font-size: 28px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.stat-tile .k { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+.stat-tile .delta { font-size: 12px; color: var(--good); margin-top: 6px; font-weight: 600; }
+.stat-tile .delta.neg { color: var(--bad); }
+
+/* ===== PRODUCT BREAKDOWN ===== */
+.product-list { display: flex; flex-direction: column; gap: 6px; }
+.product-row {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  display: grid; grid-template-columns: 1fr auto auto; gap: 16px;
+  align-items: center; transition: all .15s;
+}
+.product-row:hover { border-color: var(--brand); }
+.product-row .nm { font-weight: 600; font-size: 14px; }
+.product-row .nm small { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: 12px; }
+.product-row .bar-wrap { width: 200px; height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.product-row .bar { height: 100%; background: linear-gradient(90deg, var(--brand), var(--accent)); border-radius: 999px; }
+.product-row .val { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 80px; text-align: right; }
+.product-row .val small { display: block; color: var(--good); font-weight: 600; font-size: 11px; margin-top: 2px; }
+.product-row .val small.neg { color: var(--bad); }
+@media (max-width: 720px) { .product-row { grid-template-columns: 1fr; } .product-row .bar-wrap { width: 100%; } }
+
+/* ===== GAME PLAN ===== */
+.plan-matrix {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+}
+.plan-row {
+  display: grid; grid-template-columns: 200px 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+.plan-row:last-child { border-bottom: 0; }
+.plan-row.head { background: var(--line-2); font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.plan-row.head > div { padding: 14px 20px; }
+.plan-row > div { padding: 18px 20px; border-right: 1px solid var(--line); }
+.plan-row > div:last-child { border-right: 0; }
+.plan-channel {
+  font-weight: 700; display: flex; align-items: center; gap: 10px;
+}
+.plan-channel .pill {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--good);
+}
+.plan-channel .pill.bad { background: var(--bad); }
+.plan-channel small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+.plan-row ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+.plan-row ul li { margin-bottom: 4px; cursor: pointer; transition: all .15s; }
+.plan-row ul li:hover { color: var(--brand); }
+.plan-row ul li.done { color: var(--muted); text-decoration: line-through; }
+@media (max-width: 880px) { .plan-row { grid-template-columns: 1fr; } .plan-row > div { border-right: 0; border-bottom: 1px solid var(--line-2); } }
+
+/* ===== MODAL ===== */
+.modal-bg {
+  position: fixed; inset: 0; background: rgba(14,20,48,.6);
+  backdrop-filter: blur(8px); z-index: 1000;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.modal-bg.open { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--bg-2); border-radius: var(--radius);
+  max-width: 480px; width: 100%; padding: 28px; position: relative;
+  transform: scale(.95); transition: transform .2s;
+}
+.modal-bg.open .modal { transform: scale(1); }
+.modal-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 32px; height: 32px; border-radius: 8px; border: 0;
+  background: transparent; cursor: pointer; font-size: 18px; color: var(--muted);
+}
+.modal-close:hover { background: var(--line-2); color: var(--ink); }
+.modal-tag {
+  display: inline-block; font-size: 11px; padding: 4px 10px;
+  background: var(--brand-soft); color: var(--brand);
+  border-radius: 999px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.modal h3 { margin: 14px 0 8px; }
+.modal p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+.modal-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin: 16px 0;
+}
+.modal-stat {
+  background: var(--bg); border-radius: var(--radius-sm);
+  padding: 12px; text-align: center;
+}
+.modal-stat .v { font-size: 22px; font-weight: 700; color: var(--brand); font-family: 'Plus Jakarta Sans', sans-serif; }
+.modal-stat .k { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 4px; }
+
+/* ===== FOOTER ===== */
+.foot {
+  max-width: 1280px; margin: 80px auto 40px; padding: 32px 24px;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  color: var(--muted); font-size: 13px;
+}
+.foot-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--ink); font-size: 18px; }
+.foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.foot-links a { color: var(--ink-2); text-decoration: none; }
+.foot-links a:hover { color: var(--brand); }
+
+/* ===== FAB ===== */
+.fab {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--ink); color: var(--bg-2);
+  border: 0; cursor: pointer; box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(20px); transition: all .2s;
+  z-index: 50;
+}
+.fab.show { opacity: 1; transform: none; }
+.fab:hover { background: var(--brand); }
+
+/* ===== REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(20px); transition: all .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 720px) {
+  .nav-inner { padding: 12px 16px; }
+  .nav-link:not(.primary) { display: none; }
+  .hero { padding: 40px 16px 20px; }
+  .scorecard, section { padding-left: 16px; padding-right: 16px; }
+  .scorecard-head, .channel-card { padding: 20px; }
+  .scorecard-table thead th, .scorecard-table tbody td { padding: 12px 14px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot"></span><span>Nancy Report <em style="color:var(--muted);font-style:normal;font-weight:500;font-size:13px;margin-left:8px">· June 23</em></span></div>
+    <nav class="nav-links">
+      <a class="nav-link" href="#scorecard">Scorecard</a>
+      <a class="nav-link" href="#shopify">Shopify</a>
+      <a class="nav-link" href="#channels">Channels</a>
+      <a class="nav-link" href="#attribution">Attribution</a>
+      <a class="nav-link" href="#plan">Game Plan</a>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">☾</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-eyebrow">Week of June 23 · Performance Snapshot</div>
+  <h1>Nancy <em>Report.</em></h1>
+  <p class="lead">An interactive walkthrough of the deck — channel performance, attribution survey results, and the next two weeks of work, all in one click.</p>
+  <div class="hero-meta">
+    <span><strong>19</strong>slides</span>
+    <span><strong>4</strong>channels live</span>
+    <span><strong>$6.17M</strong>L30D revenue</span>
+    <span><strong>2.05×</strong>L30D ROAS</span>
+  </div>
+</section>
+
+<!-- ============ SCORECARD ============ -->
+<section id="scorecard" class="scorecard reveal">
+  <div class="scorecard-card">
+    <div class="scorecard-head">
+      <div>
+        <h2>Overall <em>Scorecard.</em></h2>
+        <p>Toggle between time windows — the table updates in place.</p>
+      </div>
+      <div class="period-tabs" role="tablist" id="periodTabs">
+        <button class="period-tab active" data-period="L30D">L30D</button>
+        <button class="period-tab" data-period="L7D">L7D</button>
+        <button class="period-tab" data-period="Yesterday">Yesterday</button>
+        <button class="period-tab" data-period="Targets">Targets</button>
+      </div>
+    </div>
+    <table class="scorecard-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th id="th-period">L30D</th>
+          <th>Good</th>
+          <th>Better</th>
+          <th>Best</th>
+        </tr>
+      </thead>
+      <tbody id="scorecardBody"></tbody>
+    </table>
+    <div class="scorecard-foot">
+      <span class="legend"><span class="dot good"></span>Better &amp; best</span>
+      <span class="legend"><span class="dot warn"></span>Good target</span>
+      <span class="legend"><span class="dot bad"></span>Below target</span>
+      <span style="margin-left:auto;font-style:italic">Amazon attributed in Revenue and Overall Spend</span>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-top:14px;font-style:italic">
+    L30D ROAS increased vs. last week; shorter windows hold within target with visible improvement on Meta ROAS.
+  </p>
+</section>
+
+<!-- ============ SHOPIFY ============ -->
+<section id="shopify" class="reveal">
+  <div class="section-head">
+    <span class="section-num">01 — Shopify</span>
+    <h2>Shopify <em>data.</em> June vs. June.</h2>
+    <p>Sessions trending up 11% week-over-week; AOV holding above $78.</p>
+  </div>
+
+  <div class="shopify-grid">
+    <div class="shopify-card">
+      <h4>Total sales breakdown <span style="color:var(--muted);font-weight:400;font-size:13px">Jun 8–14 vs Jul 1–7</span></h4>
+      <div class="kv-list">
+        <div class="kv"><span class="k">Gross sales</span><span class="v">$1,789,167 <span class="delta">+1.2%</span></span></div>
+        <div class="kv"><span class="k">Discounts</span><span class="v">-$361,680 <span class="delta">+0%</span></span></div>
+        <div class="kv"><span class="k">Returns</span><span class="v">-$32,191 <span class="delta neg">-4%</span></span></div>
+        <div class="kv"><span class="k">Net sales</span><span class="v">$1,395,295 <span class="delta">+0.9%</span></span></div>
+        <div class="kv"><span class="k">Shipping charges</span><span class="v">$17,652 <span class="delta">+2.5%</span></span></div>
+        <div class="kv"><span class="k">Return fees</span><span class="v">$0.00</span></div>
+        <div class="kv"><span class="k">Taxes</span><span class="v">$72,069</span></div>
+        <div class="kv"><span class="k" style="font-weight:700;color:var(--ink)">Total sales</span><span class="v" style="font-size:16px">$1,484,818 <span class="delta">+0.6%</span></span></div>
+      </div>
+    </div>
+
+    <div class="stat-tiles">
+      <div class="stat-tile">
+        <div class="v" data-count="341253">0</div>
+        <div class="k">Sessions</div>
+        <div class="delta">+11% vs prev week</div>
+      </div>
+      <div class="stat-tile">
+        <div class="v">$78.97</div>
+        <div class="k">Avg order value</div>
+        <div class="delta">+1.4%</div>
+      </div>
+      <div class="stat-tile">
+        <div class="v">12.45%</div>
+        <div class="k">Returning rate</div>
+        <div class="delta">Klaviyo emails driving</div>
+      </div>
+      <div class="stat-tile">
+        <div class="v">4.82%</div>
+        <div class="k">Conversion rate</div>
+        <div class="delta">+0% steady</div>
+      </div>
+    </div>
+  </div>
+
+  <h4 style="margin:32px 0 14px">Top products <span style="color:var(--muted);font-weight:400;font-size:13px">Jun 8–14 vs Jun 1–7</span></h4>
+  <div class="product-list">
+    <div class="product-row">
+      <div class="nm">Lem Clitoral Massager <small>Nancy · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
+      <div class="val">$1.17M <small>+0.2%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Avo Clitoral Massager <small>Nancy · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:38%"></div></div>
+      <div class="val">$120.9K <small class="neg">-3%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Berri Tapping Clitoral Massager <small>Nancy · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:24%"></div></div>
+      <div class="val">$50.5K <small class="neg">-7%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Tutti Frutti Bundle <small>Nancy · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:22%"></div></div>
+      <div class="val">$45.7K <small>+16%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Lolly Mini Wand <small>Nancy · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:15%"></div></div>
+      <div class="val">$23.5K <small>+4%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Oil Glow <small>Bird</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:12%"></div></div>
+      <div class="val">$17.9K <small>+23%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Kali <small>Bird</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:11%"></div></div>
+      <div class="val">$16.7K <small>+11%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Nami 2 <small>Bird · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:10%"></div></div>
+      <div class="val">$15.1K <small>+67%</small></div>
+    </div>
+    <div class="product-row">
+      <div class="nm">Oh-Oh-Oh Triple Bundle <small>Nancy · Personal Massager</small></div>
+      <div class="bar-wrap"><div class="bar" style="width:8%"></div></div>
+      <div class="val">$11.4K <small>+17%</small></div>
+    </div>
+  </div>
+  <div class="note"><strong>Read:</strong> Bird products posted notable sales increases (Nami 2 +67%, Oil Glow +23%). Lem still dominates revenue (~$1.17M).</div>
+</section>
+
+<!-- ============ STATUS BY CHANNEL ============ -->
+<section id="channels" class="reveal">
+  <div class="section-head">
+    <span class="section-num">02 — Channels</span>
+    <h2>Status by <em>channel.</em></h2>
+    <p>Click a card to jump to its full breakdown below.</p>
+  </div>
+
+  <div class="status-grid">
+    <button class="status-card" data-tab="snapchat">
+      <h3>Snapchat <span class="pill">Live</span></h3>
+      <div class="meta">3 active campaigns</div>
+      <div class="budget">$700 / day budget</div>
+    </button>
+    <button class="status-card" data-tab="tiktok">
+      <h3>TikTok <span class="pill">Live</span></h3>
+      <div class="meta">4 active campaigns</div>
+      <div class="budget">$1,210 / day budget</div>
+    </button>
+    <button class="status-card bad">
+      <h3>Twitter / X <span class="pill">Halted</span></h3>
+      <div class="meta">Set up last week, delivery halted</div>
+      <div class="budget" style="background:var(--bad-soft);color:var(--bad)">No campaign live</div>
+    </button>
+    <button class="status-card" data-tab="reddit">
+      <h3>Reddit <span class="pill">Live</span></h3>
+      <div class="meta">1 active campaign</div>
+      <div class="budget">$200 / day budget</div>
+    </button>
+  </div>
+</section>
+
+<!-- ============ CHANNEL DEEP DIVE ============ -->
+<section class="reveal">
+  <div class="section-head">
+    <span class="section-num">03 — Deep dive</span>
+    <h2>Channel <em>performance.</em></h2>
+  </div>
+
+  <div class="tabs-bar" role="tablist" id="channelTabs">
+    <button class="tab-btn active" data-tab="snapchat">Snapchat <span class="count">3</span></button>
+    <button class="tab-btn" data-tab="tiktok">TikTok <span class="count">3</span></button>
+    <button class="tab-btn" data-tab="reddit">Reddit <span class="count">1</span></button>
+    <button class="tab-btn" data-tab="heyflow">Heyflow <span class="count">1</span></button>
+  </div>
+
+  <!-- SNAPCHAT -->
+  <div class="panel active" id="panel-snapchat">
+    <div class="channel-card">
+      <div class="channel-head">
+        <div>
+          <h3>Snapchat Ads</h3>
+          <div class="sub">7D click, none view · ROAS climbing gradually vs. last week.</div>
+        </div>
+        <div class="channel-budget">
+          <div class="big">$700</div>
+          <div class="small">total daily budget</div>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$205.85</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$900.00</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$5,676.23</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Revenue</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$345.14</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$1,444.96</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$6,387.99</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">ROAS</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">1.68×</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">1.61×</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">1.13×</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Purchases</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">2</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">15</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">74</span></div>
+        </div>
+      </div>
+
+      <div class="note"><strong>Action:</strong> Monitor and optimize campaigns; add more videos (rejection rate increasing).</div>
+
+      <div class="sub-title">Active Campaigns</div>
+      <div class="campaign-list">
+        <button class="campaign" data-c='{"title":"Lem Winners UGC Videos","sub":"US/UK/CA/AU · LP: unlock.hellonancy.com/lem","spend":"$400/day","sales":"L7D","roas":"1.07×"}'>
+          <div class="ix">01</div>
+          <div class="nm">Lem Winners UGC Videos · US/UK/CA/AU<small>$400/day · LP: unlock.hellonancy.com/lem</small></div>
+          <div class="rt">1.07×<small>L7D ROAS</small></div>
+        </button>
+        <button class="campaign" data-c='{"title":"Zenify ABO","sub":"US/UK/CA/AU · LP: zenify.com","spend":"$300/day","sales":"L7D","roas":"1.28×"}'>
+          <div class="ix">02</div>
+          <div class="nm">Zenify ABO · US/UK/CA/AU<small>$300/day · LP: zenify.com</small></div>
+          <div class="rt">1.28×<small>L7D ROAS</small></div>
+        </button>
+        <button class="campaign" data-c='{"title":"2026 Catalog Campaign","sub":"US · LP: hellonancy.com","spend":"$200/day","sales":"L7D","roas":"0.90×"}'>
+          <div class="ix">03</div>
+          <div class="nm">2026 Catalog Campaign · US<small>$200/day · LP: hellonancy.com</small></div>
+          <div class="rt">0.90×<small>L7D ROAS</small></div>
+        </button>
+      </div>
+
+      <div class="sub-title">Top 5 Creatives <span class="note" style="background:none;padding:0;border:0;color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0.03em">L7D spend · click for detail</span></div>
+      <div class="creatives-grid">
+        <button class="creative" data-c='{"title":"Snapchat · Top 1","spend":"$493.91","sales":"9","roas":"1.47×"}'>
+          <div class="rank">RANK 01</div>
+          <div class="big">1.47×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$493.91</strong></span><span><strong>9</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"Snapchat · Top 2","spend":"$298.61","sales":"8","roas":"2.25×"}'>
+          <div class="rank">RANK 02</div>
+          <div class="big">2.25×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$298.61</strong></span><span><strong>8</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"Snapchat · Top 3","spend":"$515.02","sales":"7","roas":"1.24×"}'>
+          <div class="rank">RANK 03</div>
+          <div class="big">1.24×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$515.02</strong></span><span><strong>7</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"Snapchat · Top 4","spend":"$213.69","sales":"5","roas":"1.97×"}'>
+          <div class="rank">RANK 04</div>
+          <div class="big">1.97×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$213.69</strong></span><span><strong>5</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"Snapchat · Top 5","spend":"$439.36","sales":"5","roas":"1.01×"}'>
+          <div class="rank">RANK 05</div>
+          <div class="big">1.01×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$439.36</strong></span><span><strong>5</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIKTOK -->
+  <div class="panel" id="panel-tiktok">
+    <div class="channel-card">
+      <div class="channel-head">
+        <div>
+          <h3>TikTok Ads</h3>
+          <div class="sub">7D click, none view · L7D ROAS promising; some ads disapproved limiting delivery.</div>
+        </div>
+        <div class="channel-budget">
+          <div class="big">$1,210</div>
+          <div class="small">total daily budget</div>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$404.64</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$868.79</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$4,558.14</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">ROAS</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">0.52×</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">2.73×</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">2.50×</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Purchases</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">1</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">28</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">138</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Top creative</div>
+          <div class="metric-row"><span class="k">Spend</span><span class="v">$217.61</span></div>
+          <div class="metric-row"><span class="k">Sales</span><span class="v">45</span></div>
+          <div class="metric-row hi"><span class="k">ROAS</span><span class="v">17.74×</span></div>
+        </div>
+      </div>
+
+      <div class="note"><strong>Action:</strong> Scale campaigns. Top creatives over 10× ROAS — double down on UGC winners.</div>
+
+      <div class="sub-title">Active Campaigns</div>
+      <div class="campaign-list">
+        <button class="campaign" data-c='{"title":"feelnancy US Spark Ads","sub":"30May26 · LP: feelnancy.com","spend":"$200/day","sales":"L7D","roas":"2.25×"}'>
+          <div class="ix">01</div>
+          <div class="nm">feelnancy_US_spark_ads_30May26<small>$200/day · Target: US · Creatives: Spark Ads · LP: feelnancy.com</small></div>
+          <div class="rt">2.25×<small>L7D ROAS</small></div>
+        </button>
+        <button class="campaign" data-c='{"title":"feelnancy UK/US/CA/AU Spark Ads","sub":"05June26 · LP: feelnancy.com","spend":"$300/day","sales":"L7D","roas":"3.53×"}'>
+          <div class="ix">02</div>
+          <div class="nm">feelnancy_UK,US,CA,AU_spark_ads_05June26<small>$300/day · Target: US, UK, AU, CA · LP: feelnancy.com</small></div>
+          <div class="rt">3.53×<small>L7D ROAS</small></div>
+        </button>
+        <button class="campaign" data-c='{"title":"Website unlock — 11 countries","sub":"50 spark ads · LP: unlock.hellonancy.com/lem","spend":"$300/day","sales":"L7D","roas":"1.92×"}'>
+          <div class="ix">03</div>
+          <div class="nm">website_unlock_11-countries_spark_ads_11June26<small>$300/day · Target: Top 11 countries · 50 spark ads · LP: unlock.hellonancy.com/lem</small></div>
+          <div class="rt">1.92×<small>L7D ROAS</small></div>
+        </button>
+      </div>
+
+      <div class="sub-title">Top 5 Creatives <span class="note" style="background:none;padding:0;border:0;color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0.03em">L7D spend · click for detail</span></div>
+      <div class="creatives-grid">
+        <button class="creative" data-c='{"title":"TikTok · Top 1","spend":"$217.61","sales":"45","roas":"17.74×"}'>
+          <div class="rank">RANK 01</div>
+          <div class="big">17.74×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$217.61</strong></span><span><strong>45</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"TikTok · Top 2","spend":"$286.90","sales":"36","roas":"12.01×"}'>
+          <div class="rank">RANK 02</div>
+          <div class="big">12.01×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$286.90</strong></span><span><strong>36</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"TikTok · Top 3","spend":"$183.64","sales":"28","roas":"13.20×"}'>
+          <div class="rank">RANK 03</div>
+          <div class="big">13.20×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$183.64</strong></span><span><strong>28</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"TikTok · Top 4","spend":"$306.73","sales":"28","roas":"7.89×"}'>
+          <div class="rank">RANK 04</div>
+          <div class="big">7.89×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$306.73</strong></span><span><strong>28</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+        <button class="creative" data-c='{"title":"TikTok · Top 5","spend":"$223.24","sales":"25","roas":"10.23×"}'>
+          <div class="rank">RANK 05</div>
+          <div class="big">10.23×</div>
+          <div class="lbl">ROAS</div>
+          <div class="stats"><span>Spend <strong>$223.24</strong></span><span><strong>25</strong> sales</span></div>
+          <div class="bar"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REDDIT -->
+  <div class="panel" id="panel-reddit">
+    <div class="channel-card">
+      <div class="channel-head">
+        <div>
+          <h3>Reddit Ads</h3>
+          <div class="sub">7D click, 1 day view · Most efficient diversification channel — L7D 2.70 ROAS on tiny budget.</div>
+        </div>
+        <div class="channel-budget">
+          <div class="big">$100</div>
+          <div class="small">daily budget</div>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$95.91</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$98.04</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$705.89</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Revenue</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$141.75</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$277.44</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$2,698.18</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">ROAS</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">1.48×</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">2.83×</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">2.70×</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Purchases</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">5</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">7</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">71</span></div>
+        </div>
+      </div>
+
+      <div class="note"><strong>Read:</strong> Late data attribution. Will scale and create new campaign. Both Yesterday and L7D ROAS hit target.</div>
+
+      <div class="sub-title">Active Campaign</div>
+      <div class="campaign-list">
+        <button class="campaign" data-c='{"title":"Hello Nancy · Loox Lem Assets","sub":"US/UK/CA/AU · LP: feelnancy.com","spend":"$100/day","sales":"L7D","roas":"2.70×"}'>
+          <div class="ix">01</div>
+          <div class="nm">Hello Nancy_Feelnancy_US/UK/CA/AU_Loox Lem Assets_03Jun26<small>$100/day · Target: US · Creatives: Loox review statics · LP: feelnancy.com</small></div>
+          <div class="rt">2.70×<small>L7D ROAS</small></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEYFLOW -->
+  <div class="panel" id="panel-heyflow">
+    <div class="channel-card">
+      <div class="channel-head">
+        <div>
+          <h3>Heyflow Campaign</h3>
+          <div class="sub">A/B test running — baseline first page still outperforming the new variant.</div>
+        </div>
+        <div class="channel-budget">
+          <div class="big">HKD 1,000</div>
+          <div class="small">daily budget</div>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Spend</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$316.11</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$1,126.67</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$5,694.35</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Revenue</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">$566.59</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">$1,603.91</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">$9,274.10</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">ROAS</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">1.79×</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">1.42×</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">1.63×</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Purchases</div>
+          <div class="metric-row"><span class="k">Today</span><span class="v">1</span></div>
+          <div class="metric-row"><span class="k">Y'day</span><span class="v">3</span></div>
+          <div class="metric-row hi"><span class="k">L7D</span><span class="v">15</span></div>
+        </div>
+      </div>
+
+      <div class="metrics-grid" style="margin-top:0">
+        <div class="metric" style="background:linear-gradient(135deg,var(--brand),var(--accent));color:white;border:0">
+          <div class="metric-label" style="color:rgba(255,255,255,.8)">A/B Test — Conversion</div>
+          <div class="metric-row" style="border:0"><span class="k" style="color:rgba(255,255,255,.8)">Baseline</span><span class="v" style="color:white;font-size:18px">25.45%</span></div>
+          <div class="metric-row" style="border:0"><span class="k" style="color:rgba(255,255,255,.8)">Variant</span><span class="v" style="color:white;font-size:18px">22.32%</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Visitors by device</div>
+          <div class="metric-row"><span class="k">Desktop</span><span class="v">2.55%</span></div>
+          <div class="metric-row"><span class="k">Mobile</span><span class="v">95.0%</span></div>
+          <div class="metric-row"><span class="k">Tablet</span><span class="v">2.45%</span></div>
+        </div>
+      </div>
+
+      <div class="note"><strong>Test:</strong> A/B different first page; flow of questions unchanged. Baseline winning — iterate variant or hold.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZIGPOLL ============ -->
+<section id="attribution" class="reveal">
+  <div class="section-head">
+    <span class="section-num">04 — Attribution</span>
+    <h2>Zigpoll <em>survey.</em> Where did we first catch your eye?</h2>
+    <p>Post-purchase attribution survey. Meta accounts for ~77%. Click a row to highlight it.</p>
+  </div>
+
+  <div class="zigpoll-grid">
+    <div class="zigpoll-card">
+      <h4>Today <span class="tag">823 responses</span></h4>
+      <div id="zigpollToday"></div>
+      <div class="poll-stats">
+        <div class="poll-stat"><div class="v">2.7K</div><div class="k">View count</div></div>
+        <div class="poll-stat"><div class="v">29.7%</div><div class="k">Response rate</div></div>
+        <div class="poll-stat"><div class="v">30%</div><div class="k">Engagement</div></div>
+      </div>
+    </div>
+
+    <div class="zigpoll-card">
+      <h4>Yesterday <span class="tag">906 responses</span></h4>
+      <div id="zigpollYesterday"></div>
+      <div class="poll-stats">
+        <div class="poll-stat"><div class="v">2.8K</div><div class="k">View count</div></div>
+        <div class="poll-stat"><div class="v">31.3%</div><div class="k">Response rate</div></div>
+        <div class="poll-stat"><div class="v">31.6%</div><div class="k">Engagement</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <strong>Summary:</strong> Facebook (~52%) + Instagram (~26%) = ~77% Meta. Word of mouth (A friend + My partner) ~10%. Snapchat and AI Search register near zero despite active Snapchat ad spend.
+  </div>
+</section>
+
+<!-- ============ GAME PLAN ============ -->
+<section id="plan" class="reveal">
+  <div class="section-head">
+    <span class="section-num">05 — Game Plan</span>
+    <h2>What's done. What's <em>next</em>.</h2>
+    <p>Click any item to mark it done. Local state — resets on reload.</p>
+  </div>
+
+  <div class="plan-matrix">
+    <div class="plan-row head">
+      <div>Channel</div>
+      <div>What's Done</div>
+      <div>Findings</div>
+      <div>Next Step</div>
+    </div>
+    <div class="plan-row">
+      <div class="plan-channel">
+        <span class="pill"></span>
+        <div>Snapchat<small>$900/day budget</small></div>
+      </div>
+      <div><ul><li>Launched catalog campaign</li></ul></div>
+      <div><ul><li>Hitting a lot of rejected ads</li><li>Zenify-directed campaign performing well</li><li>Snapchat sessions increasing</li></ul></div>
+      <div><ul><li>Create new ad accounts</li><li>Monitor campaigns &amp; kill underperformers</li></ul></div>
+    </div>
+    <div class="plan-row">
+      <div class="plan-channel">
+        <span class="pill"></span>
+        <div>TikTok<small>$800/day budget</small></div>
+      </div>
+      <div><ul><li>Launched new campaign — 11 countries, directing to unlock.hellonancy.com</li></ul></div>
+      <div><ul><li>Spark ads performing well on different landing page</li></ul></div>
+      <div><ul><li>Scale campaigns gradually, watch ROAS hold</li></ul></div>
+    </div>
+    <div class="plan-row">
+      <div class="plan-channel">
+        <span class="pill bad"></span>
+        <div>Twitter / X<small>campaign not live</small></div>
+      </div>
+      <div><ul><li>Setup done</li></ul></div>
+      <div><ul><li>Blocker: delivery status halted</li></ul></div>
+      <div><ul><li>Find a Twitter ads expert to learn from</li><li>Launch the campaign this week</li></ul></div>
+    </div>
+    <div class="plan-row">
+      <div class="plan-channel">
+        <span class="pill"></span>
+        <div>Reddit<small>$100/daily</small></div>
+      </div>
+      <div><ul><li>Campaign launched, monitoring</li></ul></div>
+      <div><ul><li>Inconsistent data but good ROAS</li></ul></div>
+      <div><ul><li>Monitor, scale, launch new</li><li>Target more countries</li></ul></div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 16px">Game plan for Nancy <span style="color:var(--muted);font-weight:500;font-size:14px">— account level</span></h3>
+  <div class="plan-matrix">
+    <div class="plan-row head">
+      <div>Account</div>
+      <div>What's Done</div>
+      <div>Findings</div>
+      <div>Next Step</div>
+    </div>
+    <div class="plan-row">
+      <div class="plan-channel">
+        <span class="pill"></span>
+        <div>Nancy<small>overall account</small></div>
+      </div>
+      <div><ul><li>Launched localized Zenify ABO campaign</li><li>Launched campaigns on TikTok &amp; Snapchat</li></ul></div>
+      <div><ul><li>Sales from L7D hold within target; L30D ROAS up</li><li>Improvement on target Meta ROAS</li><li>TikTok ads holding with good ROAS</li><li>Snapchat ROAS increased vs. L7D</li><li>Juicy Blanket sales decreasing — investigate</li></ul></div>
+      <div><ul><li>Monitor &amp; optimize other paid channels</li><li>Create a new whitelisting campaign <em style="font-style:italic;color:var(--muted)">(this week)</em></li><li>Launch Pride Campaign <em style="font-style:italic;color:var(--muted)">(target today)</em></li><li>Start optimising Google</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div>
+    <div class="foot-brand">Nancy <em>Report.</em></div>
+    <div>Built from the Google Slides deck · June 23, 2026.</div>
+  </div>
+  <div class="foot-links">
+    <a href="index.html">Dashboard (June 16)</a>
+    <a href="deck.html">Slide deck</a>
+    <a href="slideshow.html">Slideshow</a>
+    <a href="https://docs.google.com/presentation/d/1f9ZeU0yup69jTCxqDHeQapz4NVRmKuM-za7Ou25TEoY/edit" target="_blank" rel="noopener">Google Slides</a>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">×</button>
+    <div class="modal-tag" id="modalTag">Detail</div>
+    <h3 id="modalTitle">Title</h3>
+    <p id="modalSub">Subtitle</p>
+    <div class="modal-stats">
+      <div class="modal-stat"><div class="v" id="modalV1">$0</div><div class="k">Spend</div></div>
+      <div class="modal-stat"><div class="v" id="modalV2">0</div><div class="k">Sales</div></div>
+      <div class="modal-stat"><div class="v" id="modalV3">0×</div><div class="k">ROAS</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin:0">For full creative assets and additional context, open the original deck.</p>
+  </div>
+</div>
+
+<button class="fab" id="fab" aria-label="Scroll to top">↑</button>
+
+<script>
+/* ========= SCORECARD DATA ========= */
+const scorecardData = {
+  L30D: [
+    { label: 'Revenue', value: '$6,166,661', status: 'good' },
+    { label: 'Overall Spend', value: '$3,008,127' },
+    { label: 'Overall ROAS', value: '2.05', status: 'bad', highlight: 'warn' },
+    { label: 'NC-ROAS', value: '1.82' },
+    { label: 'EBIT', value: '$637,170', status: 'bad', highlight: 'warn' },
+    { label: 'EBIT %', value: '10.33%' },
+    { label: 'Meta Spend %', value: '81%' },
+    { label: 'Meta Spend', value: '$2,430,758' },
+    { label: 'Meta ROAS', value: '1.68', status: 'bad', highlight: 'warn' },
+    { label: 'Repeat %', value: '11%' }
+  ],
+  L7D: [
+    { label: 'Revenue', value: '$1,505,745', status: 'good' },
+    { label: 'Overall Spend', value: '$700,347' },
+    { label: 'Overall ROAS', value: '2.15', status: 'good', highlight: 'good' },
+    { label: 'NC-ROAS', value: '1.88' },
+    { label: 'EBIT', value: '$189,287', status: 'good', highlight: 'good' },
+    { label: 'EBIT %', value: '12.57%' },
+    { label: 'Meta Spend %', value: '78%' },
+    { label: 'Meta Spend', value: '$548,489' },
+    { label: 'Meta ROAS', value: '1.74', status: 'bad', highlight: 'warn' },
+    { label: 'Repeat %', value: '12%' }
+  ],
+  Yesterday: [
+    { label: 'Revenue', value: '$219,733', status: 'good' },
+    { label: 'Overall Spend', value: '$100,795' },
+    { label: 'Overall ROAS', value: '2.18', status: 'good', highlight: 'good' },
+    { label: 'NC-ROAS', value: '1.95' },
+    { label: 'EBIT', value: '$29,135', status: 'good', highlight: 'good' },
+    { label: 'EBIT %', value: '13.26%' },
+    { label: 'Meta Spend %', value: '78%' },
+    { label: 'Meta Spend', value: '$78,595' },
+    { label: 'Meta ROAS', value: '1.82', status: 'good', highlight: 'good' },
+    { label: 'Repeat %', value: '10%' }
+  ],
+  Targets: [
+    { label: 'Revenue', value: '$200,000' },
+    { label: 'Overall Spend', value: '$93,023' },
+    { label: 'Overall ROAS', value: '2.15' },
+    { label: 'NC-ROAS', value: '1.89' },
+    { label: 'EBIT', value: '$24,060' },
+    { label: 'EBIT %', value: '12.03%' },
+    { label: 'Meta Spend %', value: '75%' },
+    { label: 'Meta Spend', value: '$70,000' },
+    { label: 'Meta ROAS', value: '1.80' },
+    { label: 'Repeat %', value: '12%' }
+  ]
+};
+const targets = {
+  Good: [ '$200,000','$93,023','2.15','1.89','$24,060','12.03%','75%','$70,000','1.80','12%' ],
+  Better: [ '$200,000','$80,000','2.50','2.20','$35,000','17.50%','75%','$60,000','2.10','12%' ],
+  Best: [ '$300,000','$120,000','2.50','2.20','$60,200','20.07%','75%','$90,000','2.10','12%' ]
+};
+
+function renderScorecard(period) {
+  const tbody = document.getElementById('scorecardBody');
+  const th = document.getElementById('th-period');
+  th.textContent = period;
+  const rows = scorecardData[period];
+  tbody.innerHTML = rows.map((r, i) => {
+    const dot = r.status ? `<span class="dot ${r.status}"></span>` : '';
+    const cls = r.highlight ? `row-${r.highlight}` : '';
+    return `<tr class="${cls}">
+      <td class="row-label">${r.label}</td>
+      <td>${r.value}${dot}</td>
+      <td>${targets.Good[i]}</td>
+      <td>${targets.Better[i]}</td>
+      <td>${targets.Best[i]}</td>
+    </tr>`;
+  }).join('');
+}
+renderScorecard('L30D');
+
+document.querySelectorAll('#periodTabs .period-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#periodTabs .period-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderScorecard(btn.dataset.period);
+  });
+});
+
+/* ========= ZIGPOLL ========= */
+const zigpollToday = [
+  { lbl: 'Facebook', pct: 52.6, ct: 421 },
+  { lbl: 'Instagram', pct: 25.7, ct: 194 },
+  { lbl: 'A friend', pct: 6.9, ct: 47 },
+  { lbl: 'TikTok', pct: 6.7, ct: 30 },
+  { lbl: 'My partner', pct: 2.9, ct: 22 },
+  { lbl: 'Google', pct: 2.8, ct: 23 },
+  { lbl: 'Other', pct: 0.9, ct: 8 },
+  { lbl: 'Reddit', pct: 0.9, ct: 7 },
+  { lbl: 'Press Article', pct: 0.5, ct: 11 },
+  { lbl: 'Podcast', pct: 0.6, ct: 5 },
+  { lbl: 'Threads', pct: 0.4, ct: 4 },
+  { lbl: 'Youtube', pct: 0.3, ct: 3 },
+  { lbl: 'Snapchat', pct: 0.1, ct: 1 },
+  { lbl: 'AI Search', pct: 0.1, ct: 1 }
+];
+const zigpollYesterday = [
+  { lbl: 'Facebook', pct: 51.6, ct: 486 },
+  { lbl: 'Instagram', pct: 20.6, ct: 198 },
+  { lbl: 'A friend', pct: 8.4, ct: 72 },
+  { lbl: 'TikTok', pct: 5.3, ct: 50 },
+  { lbl: 'My partner', pct: 5.1, ct: 30 },
+  { lbl: 'Google', pct: 2.8, ct: 26 },
+  { lbl: 'Other', pct: 1.7, ct: 10 },
+  { lbl: 'Reddit', pct: 0.9, ct: 9 },
+  { lbl: 'Press Article', pct: 0.8, ct: 6 },
+  { lbl: 'Youtube', pct: 0.5, ct: 5 },
+  { lbl: 'Podcast', pct: 0.4, ct: 4 },
+  { lbl: 'X (Twitter)', pct: 0.2, ct: 2 },
+  { lbl: 'Threads', pct: 0.2, ct: 2 },
+  { lbl: 'AI Search', pct: 0.2, ct: 2 }
+];
+function renderZigpoll(elId, data) {
+  document.getElementById(elId).innerHTML = data.map(d => `
+    <div class="poll-bar">
+      <div class="lbl">${d.lbl}</div>
+      <div class="bar-wrap"><div class="bar" style="width:${Math.max(2, d.pct * 1.5)}%"></div></div>
+      <div class="pct">${d.pct.toFixed(1)}%</div>
+      <div class="ct">${d.ct}</div>
+    </div>
+  `).join('');
+}
+renderZigpoll('zigpollToday', zigpollToday);
+renderZigpoll('zigpollYesterday', zigpollYesterday);
+
+/* ========= CHANNEL TABS ========= */
+document.querySelectorAll('#channelTabs .tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchChannelTab(btn.dataset.tab));
+});
+function switchChannelTab(name) {
+  document.querySelectorAll('#channelTabs .tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+}
+/* Status card jumps to deep dive */
+document.querySelectorAll('.status-card[data-tab]').forEach(card => {
+  card.addEventListener('click', () => {
+    switchChannelTab(card.dataset.tab);
+    document.querySelector('#channelTabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ========= MODAL ========= */
+const modalBg = document.getElementById('modalBg');
+const modalTag = document.getElementById('modalTag');
+const modalTitle = document.getElementById('modalTitle');
+const modalSub = document.getElementById('modalSub');
+const modalV1 = document.getElementById('modalV1');
+const modalV2 = document.getElementById('modalV2');
+const modalV3 = document.getElementById('modalV3');
+
+function openModal(data, tag) {
+  modalTag.textContent = tag || 'Detail';
+  modalTitle.textContent = data.title;
+  modalSub.textContent = data.sub || '';
+  modalV1.textContent = data.spend || '—';
+  modalV2.textContent = data.sales || '—';
+  modalV3.textContent = data.roas || '—';
+  modalBg.classList.add('open');
+}
+document.querySelectorAll('.creative, .campaign').forEach(el => {
+  el.addEventListener('click', () => {
+    try {
+      const data = JSON.parse(el.dataset.c);
+      openModal(data, el.classList.contains('creative') ? 'Creative' : 'Campaign');
+    } catch (e) {}
+  });
+});
+document.getElementById('modalClose').addEventListener('click', () => modalBg.classList.remove('open'));
+modalBg.addEventListener('click', e => { if (e.target === modalBg) modalBg.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') modalBg.classList.remove('open'); });
+
+/* ========= GAME PLAN TOGGLE ========= */
+document.querySelectorAll('.plan-row ul li').forEach(li => {
+  li.addEventListener('click', () => li.classList.toggle('done'));
+});
+
+/* ========= THEME ========= */
+const themeBtn = document.getElementById('themeToggle');
+const stored = localStorage.getItem('nr-theme');
+if (stored === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀'; }
+themeBtn.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  themeBtn.textContent = next === 'dark' ? '☀' : '☾';
+  localStorage.setItem('nr-theme', next);
+});
+
+/* ========= REVEAL ON SCROLL ========= */
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ========= COUNTER ========= */
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const start = performance.now();
+  const dur = 1500;
+  const step = t => {
+    const p = Math.min(1, (t - start) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased).toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const counterIO = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target);
+      counterIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+
+/* ========= FAB ========= */
+const fab = document.getElementById('fab');
+window.addEventListener('scroll', () => fab.classList.toggle('show', window.scrollY > 600));
+fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

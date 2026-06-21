@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nancy Report — Redesigned Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="deck.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecc486"/>
+      <stop offset="100%" stop-color="#d4ad6e"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="click-zone click-left" onclick="prev()"></div>
+<div class="click-zone click-right" onclick="next()"></div>
+
+<main class="deck">
+
+  <!-- ============ 01 · COVER ============ -->
+  <section class="slide cover" data-label="Cover">
+    <div class="slide-num">01 / 18</div>
+    <div class="slide-tag">Care &amp; Bloom &middot; Internal</div>
+    <div class="pill" data-anim="1">Week of June 16 &middot; Paid Acquisition</div>
+    <h1 data-anim="2">Nancy <em>Report.</em></h1>
+    <div class="sub" data-anim="3">A week of paid traffic, channel by channel. What moved, what didn't, and where the next dollar goes.</div>
+    <div class="arrow" data-anim="4">
+      <span>scroll &middot; arrows &middot; click</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- ============ 02 · SCORECARD ============ -->
+  <section class="slide" data-label="Scorecard">
+    <div class="slide-num">02 / 18</div>
+    <div class="slide-tag">Overall &middot; Lifetime</div>
+    <div class="bignum">
+      <div class="label" data-anim="1">Total revenue &middot; all channels</div>
+      <div class="figure" data-anim="2" data-target="6166661" data-prefix="$">$0</div>
+      <div class="caption" data-anim="3">The number we're rebuilding the system to grow. EBIT-per-day &mdash; the ladder we climb &mdash; below.</div>
+    </div>
+  </section>
+
+  <!-- ============ 03 · LADDER ============ -->
+  <section class="slide" data-label="Targets">
+    <div class="slide-num">03 / 18</div>
+    <div class="slide-tag">Targets &middot; EBIT per day</div>
+    <div style="width:100%;max-width:760px">
+      <div class="heading-slide" style="margin-bottom:48px" data-anim="1">
+        <div class="eyebrow">The Ladder</div>
+        <h2 style="font-size:clamp(40px,5vw,72px)">Own the <em>number</em>. Daily.</h2>
+      </div>
+      <div class="ladder">
+        <div class="rung" data-anim="2">
+          <div class="rung-num">3</div>
+          <div class="rung-mid"><div class="tier">Best &middot; Scale</div><div class="h">$60k EBIT / day</div></div>
+          <div class="rung-side">20% margin &middot; scale the volume</div>
+        </div>
+        <div class="rung" data-anim="3">
+          <div class="rung-num">2</div>
+          <div class="rung-mid"><div class="tier">Better &middot; Efficient</div><div class="h">$40k EBIT / day</div></div>
+          <div class="rung-side">20% margin &middot; same revenue, 2× efficiency</div>
+        </div>
+        <div class="rung" data-anim="4">
+          <div class="rung-num">1</div>
+          <div class="rung-mid"><div class="tier">Good &middot; Survive</div><div class="h">$20k EBIT / day</div></div>
+          <div class="rung-side">10% margin &middot; the floor we never breach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 · SHOPIFY COMPARISON ============ -->
+  <section class="slide" data-label="Shopify">
+    <div class="slide-num">04 / 18</div>
+    <div class="slide-tag">Shopify &middot; Week over Week</div>
+    <div style="width:100%;max-width:1180px">
+      <div class="heading-slide" style="margin-bottom:48px" data-anim="1">
+        <div class="eyebrow">Shopify Snapshot</div>
+        <h2 style="font-size:clamp(40px,5vw,72px)">Sessions up. <em>Bird products surging.</em></h2>
+        <p>Week 24 (Jun 8&ndash;14) compared to Week 23 (Jun 1&ndash;7). Klaviyo emails on Avo + Berri driving the returning-customer rate.</p>
+      </div>
+      <div class="compare">
+        <div class="compare-col" data-anim="2">
+          <div class="when">Jun 1 – 7</div>
+          <h3>Week 23</h3>
+          <p>Baseline performance. Returning customer rate stable. Bird products holding.</p>
+          <span class="delta down">baseline</span>
+        </div>
+        <div class="compare-col win" data-anim="3">
+          <div class="when">Jun 8 – 14</div>
+          <h3>Week 24</h3>
+          <p>Increase in sessions. Returning-customer rate up, mostly Avo and Berri attributed to Klaviyo emails. Bird products notable sales increase.</p>
+          <span class="delta up">↑ momentum</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 · CHANNEL OVERVIEW ============ -->
+  <section class="slide" data-label="Channels">
+    <div class="slide-num">05 / 18</div>
+    <div class="slide-tag">L7D Spend by Channel</div>
+    <div style="width:100%;max-width:1240px">
+      <div class="heading-slide" style="margin-bottom:48px" data-anim="1">
+        <div class="eyebrow">Channel Map</div>
+        <h2 style="font-size:clamp(40px,5vw,72px)">Five channels. <em>One ledger.</em></h2>
+        <p>Last-7-day paid spend across the active channels. TSL ABO carries the volume; TikTok carries the margin.</p>
+      </div>
+      <div class="channels-row">
+        <div class="ch-card" data-anim="2"><div class="nm">Snapchat</div><div class="v" data-target="5676" data-prefix="$">$0</div><div class="k">L7D Spend</div></div>
+        <div class="ch-card" data-anim="3"><div class="nm">TikTok</div><div class="v" data-target="4558" data-prefix="$">$0</div><div class="k">L7D Spend</div></div>
+        <div class="ch-card" data-anim="4"><div class="nm">Reddit</div><div class="v" data-target="706" data-prefix="$">$0</div><div class="k">L7D Spend</div></div>
+        <div class="ch-card" data-anim="5"><div class="nm">Heyflow</div><div class="v" data-target="5694" data-prefix="$">$0</div><div class="k">L7D Spend</div></div>
+        <div class="ch-card" data-anim="6"><div class="nm">TSL ABO</div><div class="v" data-target="17664" data-prefix="$">$0</div><div class="k">L7D Spend</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 · SNAPCHAT ============ -->
+  <section class="slide" data-label="Snapchat">
+    <div class="slide-num">06 / 18</div>
+    <div class="slide-tag">Snapchat &middot; 3 Active Campaigns</div>
+    <div class="channel-detail">
+      <div class="ch-side">
+        <div class="eyebrow" data-anim="1">Channel 01</div>
+        <h2 data-anim="2">Snapchat <em>climbs.</em></h2>
+        <p data-anim="3">ROAS up gradually vs. last week. Three live campaigns, $900/day total. Add more videos &mdash; rejection rate is creeping.</p>
+        <div data-anim="4">
+          <span class="tag"><strong>3</strong> campaigns</span>
+          <span class="tag"><strong>$900</strong>/day</span>
+          <span class="tag"><strong>74</strong> L7D sales</span>
+        </div>
+      </div>
+      <div class="ch-metrics">
+        <div class="ch-metric hero-metric" data-anim="5">
+          <div class="lbl">L7D ROAS</div>
+          <div class="v" data-target="1.13" data-suffix="×">0×</div>
+          <div class="ctx">Up from 1.07 prior week &middot; Today 1.68×</div>
+        </div>
+        <div class="ch-metric" data-anim="6">
+          <div class="lbl">L7D Spend</div>
+          <div class="v" data-target="5676" data-prefix="$">$0</div>
+          <div class="ctx">$900/day budget</div>
+        </div>
+        <div class="ch-metric" data-anim="7">
+          <div class="lbl">L7D Revenue</div>
+          <div class="v" data-target="6388" data-prefix="$">$0</div>
+          <div class="ctx">74 purchases</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 07 · SNAPCHAT TOP 5 ============ -->
+  <section class="slide" data-label="Snapchat Creatives">
+    <div class="slide-num">07 / 18</div>
+    <div class="slide-tag">Snapchat &middot; Top 5 L7D</div>
+    <div style="width:100%;max-width:1240px">
+      <div class="heading-slide" style="margin-bottom:42px" data-anim="1">
+        <div class="eyebrow">Top creatives &middot; Snapchat</div>
+        <h2 style="font-size:clamp(36px,4.5vw,64px)">The five doing <em>the work.</em></h2>
+      </div>
+      <div class="tops">
+        <div class="top" data-anim="2"><div class="ix">RANK 01</div><div class="roas">1.47×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>493.91</strong></span><span><strong>9</strong> sales</span></div></div>
+        <div class="top featured" data-anim="3"><div class="ix">RANK 02</div><div class="roas">2.25×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>298.61</strong></span><span><strong>8</strong> sales</span></div></div>
+        <div class="top" data-anim="4"><div class="ix">RANK 03</div><div class="roas">1.24×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>515.02</strong></span><span><strong>7</strong> sales</span></div></div>
+        <div class="top" data-anim="5"><div class="ix">RANK 04</div><div class="roas">1.97×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>213.69</strong></span><span><strong>5</strong> sales</span></div></div>
+        <div class="top" data-anim="6"><div class="ix">RANK 05</div><div class="roas">1.01×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>439.36</strong></span><span><strong>5</strong> sales</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 · TIKTOK ============ -->
+  <section class="slide" data-label="TikTok">
+    <div class="slide-num">08 / 18</div>
+    <div class="slide-tag">TikTok &middot; UGC Winners</div>
+    <div class="channel-detail">
+      <div class="ch-side">
+        <div class="eyebrow" data-anim="1">Channel 02</div>
+        <h2 data-anim="2">TikTok <em>delivers.</em></h2>
+        <p data-anim="3">Top creatives at 10×, 13×, even 17× ROAS. The UGC formula is working &mdash; double down before fatigue.</p>
+        <div data-anim="4">
+          <span class="tag"><strong>5</strong> top creatives</span>
+          <span class="tag"><strong>17.74×</strong> peak</span>
+          <span class="tag"><strong>162</strong> L7D sales (top 5)</span>
+        </div>
+      </div>
+      <div class="ch-metrics">
+        <div class="ch-metric hero-metric" data-anim="5">
+          <div class="lbl">Top Creative ROAS</div>
+          <div class="v" data-target="17.74" data-suffix="×">0×</div>
+          <div class="ctx">45 sales at $217.61 spend</div>
+        </div>
+        <div class="ch-metric" data-anim="6">
+          <div class="lbl">L7D Spend</div>
+          <div class="v" data-target="4558" data-prefix="$">$0</div>
+          <div class="ctx">Today $404 &middot; Y'day $869</div>
+        </div>
+        <div class="ch-metric" data-anim="7">
+          <div class="lbl">Top 5 Avg ROAS</div>
+          <div class="v" data-target="12.21" data-suffix="×">0×</div>
+          <div class="ctx">Across 162 sales</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 09 · TIKTOK TOP 5 ============ -->
+  <section class="slide" data-label="TikTok Creatives">
+    <div class="slide-num">09 / 18</div>
+    <div class="slide-tag">TikTok &middot; Top 5 L7D</div>
+    <div style="width:100%;max-width:1240px">
+      <div class="heading-slide" style="margin-bottom:42px" data-anim="1">
+        <div class="eyebrow">Top creatives &middot; TikTok</div>
+        <h2 style="font-size:clamp(36px,4.5vw,64px)">Hooks that <em>convert.</em></h2>
+      </div>
+      <div class="tops">
+        <div class="top" data-anim="2"><div class="ix">RANK 01</div><div class="roas">7.89×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>306.73</strong></span><span><strong>28</strong> sales</span></div></div>
+        <div class="top" data-anim="3"><div class="ix">RANK 02</div><div class="roas">12.01×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>286.90</strong></span><span><strong>36</strong> sales</span></div></div>
+        <div class="top" data-anim="4"><div class="ix">RANK 03</div><div class="roas">13.20×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>183.64</strong></span><span><strong>28</strong> sales</span></div></div>
+        <div class="top featured" data-anim="5"><div class="ix">RANK 04</div><div class="roas">17.74×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>217.61</strong></span><span><strong>45</strong> sales</span></div></div>
+        <div class="top" data-anim="6"><div class="ix">RANK 05</div><div class="roas">10.23×</div><div class="roas-lbl">ROAS</div><div class="meta"><span>$<strong>223.24</strong></span><span><strong>25</strong> sales</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10 · REDDIT ============ -->
+  <section class="slide" data-label="Reddit">
+    <div class="slide-num">10 / 18</div>
+    <div class="slide-tag">Reddit &middot; Quiet Outperformer</div>
+    <div class="channel-detail">
+      <div class="ch-side">
+        <div class="eyebrow" data-anim="1">Channel 03</div>
+        <h2 data-anim="2">Reddit <em>punches up.</em></h2>
+        <p data-anim="3">Smallest spend, healthiest ROAS day-over-day. 2.83× yesterday, 3.82× L7D. Bump budget gently and watch the curve.</p>
+        <div data-anim="4">
+          <span class="tag"><strong>$706</strong> L7D</span>
+          <span class="tag"><strong>3.82×</strong> ROAS</span>
+        </div>
+      </div>
+      <div class="ch-metrics">
+        <div class="ch-metric hero-metric" data-anim="5">
+          <div class="lbl">L7D ROAS</div>
+          <div class="v" data-target="3.82" data-suffix="×">0×</div>
+          <div class="ctx">2.83× yesterday &middot; 1.48× today</div>
+        </div>
+        <div class="ch-metric" data-anim="6">
+          <div class="lbl">L7D Spend</div>
+          <div class="v" data-target="706" data-prefix="$">$0</div>
+          <div class="ctx">Pacing under budget</div>
+        </div>
+        <div class="ch-metric" data-anim="7">
+          <div class="lbl">L7D Revenue</div>
+          <div class="v" data-target="2698" data-prefix="$">$0</div>
+          <div class="ctx">Returning at 3.8×</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 11 · ZIGPOLL DONUT ============ -->
+  <section class="slide" data-label="Zigpoll">
+    <div class="slide-num">11 / 18</div>
+    <div class="slide-tag">Zigpoll &middot; Post-Purchase Attribution</div>
+    <div class="donut-wrap">
+      <div class="donut" data-anim="1">
+        <svg viewBox="0 0 300 300">
+          <circle class="bg-ring" cx="150" cy="150" r="140"></circle>
+          <circle class="fg-ring" cx="150" cy="150" r="140" style="--final: 615.7"></circle>
+        </svg>
+        <div class="center">
+          <div>
+            <div class="v" data-target="30" data-suffix="%">0%</div>
+            <div class="k">Response Rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="donut-side">
+        <div class="eyebrow" data-anim="2" style="font-size:11px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:18px;">Where buyers say they found us</div>
+        <h3 data-anim="3">Meta still <em>leads</em>. TikTok emerging L7D.</h3>
+        <p data-anim="4">Post-purchase attribution survey. 30% average response rate today and yesterday. Meta dominates the share; TikTok responses now appearing on L7D.</p>
+        <ul data-anim="5">
+          <li><span>Meta</span><span class="v">leading</span></li>
+          <li><span>TikTok</span><span class="v">emerging</span></li>
+          <li><span>Response rate (L7D)</span><span class="v">~30%</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 12 · HEYFLOW A/B ============ -->
+  <section class="slide" data-label="Heyflow">
+    <div class="slide-num">12 / 18</div>
+    <div class="slide-tag">Heyflow &middot; A/B Test Underway</div>
+    <div style="width:100%;max-width:1180px">
+      <div class="heading-slide" style="margin-bottom:48px;text-align:center;max-width:none" data-anim="1">
+        <div class="eyebrow">Heyflow Quiz &middot; First-page test</div>
+        <h2 style="font-size:clamp(40px,5vw,72px)">Baseline <em>still wins.</em></h2>
+        <p style="margin:24px auto 0">Flow of questions unchanged. We're testing two opening pages; the original is outperforming the variant.</p>
+      </div>
+      <div class="ab">
+        <div class="ab-col win" data-anim="2">
+          <div class="tag">Variant A &middot; Baseline</div>
+          <h3>Original first page</h3>
+          <p>The first page we shipped weeks ago. Familiar to recurring traffic.</p>
+          <div class="big">1.63×</div>
+          <div class="small">L7D ROAS</div>
+        </div>
+        <div class="vs" data-anim="3">vs.</div>
+        <div class="ab-col" data-anim="4">
+          <div class="tag">Variant B &middot; New</div>
+          <h3>New first page</h3>
+          <p>Same questions after page one; new framing/hook on page one.</p>
+          <div class="big" style="color:var(--muted)">—</div>
+          <div class="small">Underperforming</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 13 · TSL ABO ============ -->
+  <section class="slide" data-label="TSL ABO">
+    <div class="slide-num">13 / 18</div>
+    <div class="slide-tag">TSL ABO &middot; Liven-Style Ads</div>
+    <div class="channel-detail">
+      <div class="ch-side">
+        <div class="eyebrow" data-anim="1">Channel 05</div>
+        <h2 data-anim="2">TSL <em>is improving.</em></h2>
+        <p data-anim="3">Today beats yesterday on revenue while spending less. ROAS recovering toward 2× on a $17K L7D base.</p>
+        <div data-anim="4">
+          <span class="tag"><strong>HKD 2,423</strong>/day</span>
+          <span class="tag"><strong>Top 15</strong> countries</span>
+          <span class="tag"><strong>38</strong> L7D sales</span>
+        </div>
+      </div>
+      <div class="ch-metrics">
+        <div class="ch-metric hero-metric" data-anim="5">
+          <div class="lbl">Today ROAS</div>
+          <div class="v" data-target="2.13" data-suffix="×">0×</div>
+          <div class="ctx">Yesterday 1.36× &middot; L7D 1.29×</div>
+        </div>
+        <div class="ch-metric" data-anim="6">
+          <div class="lbl">L7D Spend</div>
+          <div class="v" data-target="17664" data-prefix="$">$0</div>
+          <div class="ctx">The volume channel</div>
+        </div>
+        <div class="ch-metric" data-anim="7">
+          <div class="lbl">L7D Revenue</div>
+          <div class="v" data-target="22853" data-prefix="$">$0</div>
+          <div class="ctx">+30% above spend</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 14 · WINNERS ============ -->
+  <section class="slide" data-label="Winners">
+    <div class="slide-num">14 / 18</div>
+    <div class="slide-tag">TSL ABO &middot; Winning Hooks</div>
+    <div style="width:100%;max-width:1240px">
+      <div class="heading-slide" style="margin-bottom:42px" data-anim="1">
+        <div class="eyebrow">L7D Winners &middot; Customer voice in the ad</div>
+        <h2 style="font-size:clamp(36px,4.5vw,64px)">Three hooks. <em>Same conviction.</em></h2>
+      </div>
+      <div class="quotes">
+        <div class="quote" data-anim="2">
+          <div class="text">I am 66. I am divorced for nine years and separated for two before that. I have no interest in another relationship.</div>
+          <div class="stats"><span>L7D <span class="v">$3,967.57</span></span><span>ROAS <span class="v">1.30×</span></span></div>
+        </div>
+        <div class="quote" data-anim="3">
+          <div class="text">I am Camila. I am 56. I have been single by choice since I was 42. I have been telling women in their fifties the same thing for fifteen years.</div>
+          <div class="stats"><span>L7D <span class="v">$3,900.95</span></span><span>ROAS <span class="v">1.32×</span></span></div>
+        </div>
+        <div class="quote" data-anim="4">
+          <div class="text">My daughter is 28. She got divorced six months ago, after two years of marriage to a man who was, in the end, not who he advertised himself as.</div>
+          <div class="stats"><span>L7D <span class="v">$3,900.95</span></span><span>ROAS <span class="v">1.32×</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 15 · GAME PLAN SECTION ============ -->
+  <section class="slide" data-label="Game Plan">
+    <div class="slide-num">15 / 18</div>
+    <div class="slide-tag">Game Plan &middot; What's Next</div>
+    <div class="heading-slide">
+      <div class="eyebrow" data-anim="1">The game plan</div>
+      <h2 data-anim="2">What's <em>done.</em><br/>What's <em>found.</em><br/>What's <em>next.</em></h2>
+      <p data-anim="3">Every owner has a number. Every number gets reported daily. The next three slides are the only contract that matters.</p>
+    </div>
+  </section>
+
+  <!-- ============ 16 · DONE ============ -->
+  <section class="slide" data-label="Done">
+    <div class="slide-num">16 / 18</div>
+    <div class="slide-tag">Game Plan &middot; What's Done</div>
+    <div class="plan-list-wrap">
+      <div class="plan-eyebrow" data-anim="1">Already shipped</div>
+      <h2 class="plan-title" data-anim="2">What's <em>done.</em></h2>
+      <ul class="plan-items">
+        <li data-anim="3"><div class="ix">01</div><div class="text">Launched localized Zenify ABO campaign<small>Live across Top 15 countries</small></div><div class="stat">Live</div></li>
+        <li data-anim="4"><div class="ix">02</div><div class="text">Launched campaign on TikTok and Snapchat<small>UGC formula in both feeds</small></div><div class="stat">Live</div></li>
+        <li data-anim="5"><div class="ix">03</div><div class="text">Heyflow A/B first-page test<small>Original vs. new framing</small></div><div class="stat">Running</div></li>
+        <li data-anim="6"><div class="ix">04</div><div class="text">TSL ABO Liven-style ads at scale<small>HKD 2,423/day, three winners</small></div><div class="stat">Live</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 17 · FINDINGS ============ -->
+  <section class="slide" data-label="Findings">
+    <div class="slide-num">17 / 18</div>
+    <div class="slide-tag">Game Plan &middot; Findings</div>
+    <div class="plan-list-wrap">
+      <div class="plan-eyebrow" data-anim="1">What the data is telling us</div>
+      <h2 class="plan-title" data-anim="2">The <em>findings.</em></h2>
+      <ul class="plan-items">
+        <li data-anim="3"><div class="ix">01</div><div class="text">L7D sales hold within target<small>L30D ROAS increased</small></div><div class="stat">↗ trend</div></li>
+        <li data-anim="4"><div class="ix">02</div><div class="text">Target Meta ROAS improving<small>Attribution rate steady at ~30%</small></div><div class="stat">↗ trend</div></li>
+        <li data-anim="5"><div class="ix">03</div><div class="text">TikTok holds with strong ROAS<small>Top creatives at 10×+</small></div><div class="stat">↗ winners</div></li>
+        <li data-anim="6"><div class="ix">04</div><div class="text">Snapchat ROAS up vs. L7D<small>Rejection rate also climbing</small></div><div class="stat">mixed</div></li>
+        <li data-anim="7"><div class="ix">05</div><div class="text">Juicy Blanket sales decrease<small>Investigate &mdash; isolate the cause</small></div><div class="stat">↘ flag</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 18 · NEXT ============ -->
+  <section class="slide" data-label="Next">
+    <div class="slide-num">18 / 18</div>
+    <div class="slide-tag">Game Plan &middot; Next Steps</div>
+    <div class="plan-list-wrap">
+      <div class="plan-eyebrow" data-anim="1">The next two weeks</div>
+      <h2 class="plan-title" data-anim="2">What's <em>next.</em></h2>
+      <ul class="plan-items">
+        <li data-anim="3"><div class="ix">01</div><div class="text">Monitor &amp; optimize other paid channels<small>Daily owner, daily number</small></div><div class="stat">ongoing</div></li>
+        <li data-anim="4"><div class="ix">02</div><div class="text">Create a new whitelisting campaign<small>This week's commitment</small></div><div class="stat">this week</div></li>
+        <li data-anim="5"><div class="ix">03</div><div class="text">Launch Pride Campaign<small>Target: today</small></div><div class="stat">today</div></li>
+        <li data-anim="6"><div class="ix">04</div><div class="text">Start optimising Google<small>Cold start &mdash; baseline first</small></div><div class="stat">next</div></li>
+        <li data-anim="7"><div class="ix">05</div><div class="text">Refresh Snapchat creatives<small>Rejection rate is climbing</small></div><div class="stat">this week</div></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<div class="hint">
+  <kbd>←</kbd> <kbd>→</kbd> navigate &middot; <kbd>F</kbd> fullscreen
+</div>
+
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+
+<footer class="hud">
+  <div class="brand">
+    <div class="dot"></div>
+    <span>Nancy Report</span>
+    <a href="index.html">← dashboard</a>
+    <a href="slideshow.html">slideshow</a>
+    <a href="Nancy-Report-June-16.pptx" download>.pptx</a>
+  </div>
+  <div class="count">
+    <span id="cur">1</span>
+    <span class="total">/ <span id="tot">18</span></span>
+  </div>
+</footer>
+
+<script src="deck.js"></script>
+</body>
+</html>

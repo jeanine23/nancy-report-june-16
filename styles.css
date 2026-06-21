@@ -1,0 +1,110 @@
+:root {
+  --bg: #0e0e10;
+  --fg: #f4efe6;
+  --muted: rgba(244, 239, 230, 0.55);
+  --accent: #c9a368;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  overflow: hidden;
+}
+
+.deck {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 32px 72px;
+}
+
+.slide {
+  display: none;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  animation: fade 280ms ease-out;
+}
+
+.slide.active { display: block; }
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.click-left, .click-right {
+  position: fixed;
+  top: 0;
+  bottom: 56px;
+  width: 25%;
+  z-index: 10;
+  cursor: pointer;
+}
+.click-left  { left: 0; }
+.click-right { right: 0; }
+
+.click-left:hover, .click-right:hover {
+  background: linear-gradient(to right, rgba(255,255,255,0.03), transparent);
+}
+.click-right:hover {
+  background: linear-gradient(to left, rgba(255,255,255,0.03), transparent);
+}
+
+.hud {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  z-index: 20;
+}
+
+.counter { font-variant-numeric: tabular-nums; }
+.counter #cur { color: var(--fg); font-weight: 500; }
+
+.title {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--fg);
+  opacity: 0.7;
+}
+
+.dl {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  border: 1px solid rgba(201, 163, 104, 0.4);
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: all 200ms;
+}
+.dl:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+@media (max-width: 720px) {
+  .deck { padding: 16px 16px 64px; }
+  .title { display: none; }
+  .hud { font-size: 12px; padding: 0 14px; }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nancy Report — Slideshow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="click-left" onclick="prev()" aria-label="Previous slide"></div>
+<div class="click-right" onclick="next()" aria-label="Next slide"></div>
+
+<main class="deck" id="deck">
+  <img class="slide active" data-index="1"  src="slides/slide_01.png" alt="Slide 1" />
+  <img class="slide"        data-index="2"  src="slides/slide_02.png" alt="Slide 2" loading="lazy" />
+  <img class="slide"        data-index="3"  src="slides/slide_03.png" alt="Slide 3" loading="lazy" />
+  <img class="slide"        data-index="4"  src="slides/slide_04.png" alt="Slide 4" loading="lazy" />
+  <img class="slide"        data-index="5"  src="slides/slide_05.png" alt="Slide 5" loading="lazy" />
+  <img class="slide"        data-index="6"  src="slides/slide_06.png" alt="Slide 6" loading="lazy" />
+  <img class="slide"        data-index="7"  src="slides/slide_07.png" alt="Slide 7" loading="lazy" />
+  <img class="slide"        data-index="8"  src="slides/slide_08.png" alt="Slide 8" loading="lazy" />
+  <img class="slide"        data-index="9"  src="slides/slide_09.png" alt="Slide 9" loading="lazy" />
+  <img class="slide"        data-index="10" src="slides/slide_10.png" alt="Slide 10" loading="lazy" />
+  <img class="slide"        data-index="11" src="slides/slide_11.png" alt="Slide 11" loading="lazy" />
+  <img class="slide"        data-index="12" src="slides/slide_12.png" alt="Slide 12" loading="lazy" />
+  <img class="slide"        data-index="13" src="slides/slide_13.png" alt="Slide 13" loading="lazy" />
+  <img class="slide"        data-index="14" src="slides/slide_14.png" alt="Slide 14" loading="lazy" />
+  <img class="slide"        data-index="15" src="slides/slide_15.png" alt="Slide 15" loading="lazy" />
+  <img class="slide"        data-index="16" src="slides/slide_16.png" alt="Slide 16" loading="lazy" />
+  <img class="slide"        data-index="17" src="slides/slide_17.png" alt="Slide 17" loading="lazy" />
+  <img class="slide"        data-index="18" src="slides/slide_18.png" alt="Slide 18" loading="lazy" />
+  <img class="slide"        data-index="19" src="slides/slide_19.png" alt="Slide 19" loading="lazy" />
+</main>
+
+<footer class="hud">
+  <div class="counter"><span id="cur">1</span> / <span id="tot">19</span></div>
+  <div class="title"><a href="index.html" style="color:inherit;text-decoration:none">&larr; Dashboard</a> &middot; Nancy Report &middot; June 16</div>
+  <a class="dl" href="Nancy-Report-June-16.pptx" download>Download .pptx</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
